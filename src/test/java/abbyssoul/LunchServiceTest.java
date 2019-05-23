@@ -70,6 +70,32 @@ public class LunchServiceTest {
         assertThat(valid, contains(okRecipe));
     }
 
+
+    @Test
+    public void recipesWithNotBestIngredientsPutLast() {
+        final LunchService testService = new LunchService();
+
+        final Recipe okRecipe_1 = new Recipe("ok", Arrays.asList("ok", "ok-too"));
+        final Recipe okRecipe_2 = new Recipe("ok", Arrays.asList("ok-too"));
+        final Recipe notOkRecipe = new Recipe("so-so", Arrays.asList("ok", "so-so"));
+        final List<Recipe> valid = testService.validRecipes(
+                Arrays.asList(
+                        okRecipe_1,
+                        notOkRecipe,
+                        okRecipe_2
+                ),
+                Arrays.asList(
+                        new Ingredient("ok", futureDate(), futureDate()),
+                        new Ingredient("ok-too", futureDate(), futureDate()),
+                        new Ingredient("so-so", expiredDate(), futureDate())
+                ));
+
+
+        assertThat(valid.size(), is(3));
+        assertThat(valid, contains(okRecipe_1, okRecipe_2, notOkRecipe));
+    }
+
+
     Date expiredDate() {
         calendar.setTime(new Date());
         calendar.add(Calendar.DATE, -1);

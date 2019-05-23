@@ -44,7 +44,7 @@ public class LunchService {
 
         return recipes.stream()
                 .filter(r -> nonExpiredIngredients.containsAll(r.getIngredients()))
-                .sorted(Comparator.comparingInt(r -> (Collections.disjoint(r.getIngredients(), notBestIngredients) ? 1 : 0)))
+                .sorted(Comparator.comparingInt(r -> (Collections.disjoint(r.getIngredients(), notBestIngredients) ? 0 : 1)))
                 .collect(Collectors.toList());
     }
 }

@@ -1,6 +1,8 @@
 package abbyssoul;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.apache.catalina.util.ToStringUtil;
+import org.springframework.core.style.ToStringCreator;
 
 import java.util.HashSet;
 import java.util.List;
@@ -30,6 +32,14 @@ public class Recipe {
 
     public void setIngredients(List<String> value) {
         ingredients = new HashSet<>(value);
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringCreator(this)
+                .append("title", title)
+                .append("ingredients", ingredients)
+                .toString();
     }
 
     private String title;
