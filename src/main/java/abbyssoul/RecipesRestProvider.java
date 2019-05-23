@@ -15,12 +15,13 @@ import java.util.concurrent.Future;
 public class RecipesRestProvider implements RecipesProvider {
     private static final String RecipesUrl = "https://www.mocky.io/v2/5c85f7a1340000e50f89bd6c";
 
-    private final RestTemplate restTemplate = new RestTemplate();
     private final ExecutorService executorService;
+    private final RestTemplate restTemplate;
 
     @Autowired
-    public RecipesRestProvider(ExecutorService executorService) {
+    public RecipesRestProvider(ExecutorService executorService, RestTemplate restTemplate) {
         this.executorService = executorService;
+        this.restTemplate = restTemplate;
     }
 
     @Override

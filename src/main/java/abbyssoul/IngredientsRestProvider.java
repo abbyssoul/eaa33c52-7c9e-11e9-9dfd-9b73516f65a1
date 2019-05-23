@@ -1,6 +1,9 @@
 package abbyssoul;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.client.ClientHttpRequestFactory;
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
+import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
@@ -16,11 +19,12 @@ import java.util.concurrent.Future;
 public class IngredientsRestProvider implements IngredientsProvider {
     private static final String IngredientsUrl = "https://www.mocky.io/v2/5cdd037d300000da25e23402";
 
-    private final RestTemplate restTemplate = new RestTemplate();
+    private final RestTemplate restTemplate;
     private final ExecutorService executorService;
 
     @Autowired
-    public IngredientsRestProvider(ExecutorService executorService) {
+    public IngredientsRestProvider(ExecutorService executorService, RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
         this.executorService = executorService;
     }
 
